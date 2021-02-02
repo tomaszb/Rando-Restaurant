@@ -7,16 +7,45 @@
   pointer-events: none;
 }
 
+.logo {
+  max-width: 200px;
+  max-height: 55px;
+}
+
+header p{
+  max-height: 60px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 
+
+.Restaurant{
+  margin-bottom: 40px;
+}
+
+.locationDisplay{
+  margin-bottom: 30px;
+}
+
+header, img, p{
+  display: inline-block;
+}
+
 .App-header {
+  background-color: #1E1A2C;
+  color: white;
+  display:flex;
+  height: 60px;
+}
+
+.App-body{
   background-color: #282c34;
   min-height: 100vh;
-  display: flex;
+  display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -27,6 +56,47 @@
 .App-link {
   color: #61dafb;
 }
+
+.toGoogle {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  font-size:xx-large;
+  /*input has OS specif ic font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.exeButton {
+  background-color:blue;
+  color: whitesmoke;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  cursor:pointer;
+  height: 100px;
+  width: 300px;
+  outline:none;
+}
+
+.exeButton:hover:enabled{
+    background-color: whitesmoke;
+    color: blueviolet;
+}
+
+.exeButton:disabled{
+  background-color: lightgrey;
+  color: black;
+}
+
 
 @keyframes App-logo-spin {
   from {
