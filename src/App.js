@@ -23,7 +23,7 @@ function Restaurant(props){
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = {latitude:0, longitude:0, gotLocation:false, gettingRestaurant:false, restaurant:null};
+    this.state = {latitude:0, longitude:0, gotLocation:false, gettingRestaurant:false, restaurant:null, allResults:null};
     this.getRestaurant = this.getRestaurant.bind(this);
     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
@@ -34,20 +34,30 @@ class App extends React.Component {
 
   getRestaurant = () => {
     this.setState({gettingRestaurant:true});
-    if (this.state.gotLocation){
-        fetch("/getRestaurant", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({latitude:this.state.latitude, longitude:this.state.longitude})
-      }).then(response => response.json()).then(
-        (data) => {
-        this.setState({restaurant:data['rando'], gettingRestaurant: false});
-        }
-      )
+    if(!this.state.allResults){
+      if (this.state.gotLocation){
+          fetch("/getRestaurant", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({latitude:this.state.latitude, longitude:this.state.longitude})
+        }).then(response => response.json()).then(
+          (data) => {
+          this.setState({allResults:data['rando'], restaurant:this.getRandom(data['rando']), gettingRestaurant: false});
+          }
+        )
+      }
+      else{
+        console.log("don't have location!");
+      }
     }
     else{
-      console.log("don't have location!");
+      this.setState({restaurant:this.getRandom(this.state.allResults), gettingRestaurant: false});
     }
+  }
+
+  getRandom = (results) => {
+    const random = Math.floor(Math.random() * results.length);
+    return results[random];
   }
   
   componentDidMount() {
@@ -61,7 +71,7 @@ class App extends React.Component {
         gotLocation: true
       });
       this.forceUpdateHandler();
-    }, () => {console.log("geoloc error!")}, {timeout:10000});
+    }, () => {console.log("geoloc error!")}, {timeout:20000});
   }
 
   render(){

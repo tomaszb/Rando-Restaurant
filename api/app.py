@@ -22,8 +22,8 @@ def get_restaurant():
     location = (float(latitude), float(longitude))
     
     randoRest = findRestaurants(gmaps, location)
-    randoRest.getPages()
-    toReturn = randoRest.getRandom()
+    #toReturn = randoRest.getRandom()
+    toReturn = randoRest.getPages()
 
     return {'rando': toReturn}
 
